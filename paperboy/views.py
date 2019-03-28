@@ -8,8 +8,12 @@ def home(request):
     return HttpResponse(render(request, 'index.html', context))
 
 def deliver(request, id):
-    pb = get_object_or_404(Paperboy, id=id)
-    ad1 = request.POST['address1']
-    ad2 = request.POST['address2']
-    pb.deliver(int(ad1), int(ad2))
-    return HttpResponseRedirect('/')
+    paperboy = Paperboy.objects.get(pk = id)
+    context = {'paperboy': paperboy}
+    response = render(request, 'paperboy.html', context)
+    return HttpResponse(response)
+    # pb = get_object_or_404(Paperboy, id=id)
+    # ad1 = request.POST['address1']
+    # ad2 = request.POST['address2']
+    # pb.deliver(int(ad1), int(ad2))
+    # return HttpResponseRedirect('/')
